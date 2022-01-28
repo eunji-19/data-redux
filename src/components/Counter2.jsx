@@ -4,6 +4,7 @@ import {
   decrement,
   increment,
   incrementByAmount,
+  fetchIncrement,
 } from "../features/counter/counterSlice";
 
 export default function Counter2() {
@@ -19,6 +20,13 @@ export default function Counter2() {
           }}
         >
           Increment{" "}
+        </button>
+        <button
+          onClick={() => {
+            dispatch(fetchIncrement(counter));
+          }}
+        >
+          fetchIncrement + 2
         </button>
         <span>{counter}</span>
         <button
