@@ -1,15 +1,25 @@
-/**
- * https://mobx.js.org/getting-started.html
- */
+import { makeObservable, observable, computed, action, autorun } from "mobx";
 
-class TodoStore {
+class ObservableTodoStore {
   todos = [];
+  pendingRequests = 0;
+
+  constructor() {
+    makeObservable(this, {
+      todos: observable,
+      pendingRequests: observable,
+      completedTodosCount: computed,
+      report: computed,
+      addTodo: action,
+    });
+    autorun(() => console.log(this.report));
+  }
 
   get completedTodosCount() {
     return this.todos.filter((todo) => todo.completed === true).length;
   }
 
-  report() {
+  get report() {
     if (this.todos.length === 0) return "<none>";
     const nextTodo = this.todos.find((todo) => todo.completed === false);
     return (
@@ -27,4 +37,4 @@ class TodoStore {
   }
 }
 
-export const todoStore = new TodoStore();
+export const observableTodoStore = new ObservableTodoStore();
