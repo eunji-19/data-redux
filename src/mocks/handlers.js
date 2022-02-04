@@ -1,6 +1,18 @@
 import { rest } from "msw";
 
 export const handlers = [
+  rest.get("http://localhost:3000/api/user/:userId", async (req, res, ctx) => {
+    // const { id } = req.url.searchParams("id");
+    const { userId } = req.params;
+
+    return res(
+      ctx.json({
+        name: `Jimmy ${userId}`,
+      })
+    );
+    // return res(ctx.status(400));
+  }),
+
   rest.put("http://localhost:3000/counter/increment", async (req, res, ctx) => {
     const { value } = req.body;
     return res(
